@@ -1,6 +1,6 @@
 # JSON-Query
 
-I have developed JSON-Query as a generic libraray to query JSON data. The http server specifies the particualr conditions of (drm == true and episodeCount > 0) using the developed json-query libraray.
+I have developed JSON-Query as a generic libraray to query JSON data. The http server specifies the particular conditions of (drm == true and episodeCount > 0) using the developed json-query libraray.
 
   - JSON-query library can be used to query any JSON data
   - Currently only two query functions have been built (IsTrue and IsGreaterThanN). But the library can be extended to supply custom query functions
@@ -10,7 +10,7 @@ I have developed JSON-Query as a generic libraray to query JSON data. The http s
 POST: http://ec2-52-63-121-208.ap-southeast-2.compute.amazonaws.com/
 With appropriate JSON data set as body, returns the required results
 
-![Usage Image]()
+![Usage Image](https://preview.ibb.co/b0GX1v/Screen_Shot_2017_09_11_at_3_02_31_AM.png)
 
 ### Build & Tests
 _Downlaod & Setup_:
