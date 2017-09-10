@@ -23,3 +23,7 @@ type Show struct {
   Title string
   TvChannel string
 }
+
+type Request struct {
+  Payload []Show
+}

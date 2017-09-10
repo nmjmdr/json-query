@@ -6,6 +6,6 @@ type Result struct {
   Title string
 }
 
-func toResult(show Show) {
+func ToResult(show Show) Result {
   return Result { Image: show.Image.ShowImage, Slug: show.Slug, Title: show.Title }
 }
