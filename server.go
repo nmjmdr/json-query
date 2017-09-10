@@ -36,11 +36,11 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 
 	itemsFilter := filter.NewItemsFilter(&show)
 
-  fieldQuery1 := queryfunctions.IsTrue("drm")
-  fieldQuery2 := queryfunctions.IsGreaterThanN("episodeCount", 0)
+  fieldQueryDrm := queryfunctions.IsTrue("drm")
+  fieldQueryEpisodeCount := queryfunctions.IsGreaterThanN("episodeCount", 0)
 
   for _, item := range request.Payload {
-    if itemsFilter.IsMatch(item, []filter.FieldQuery{fieldQuery1, fieldQuery2}) {
+    if itemsFilter.IsMatch(item, []filter.FieldQuery{fieldQueryDrm, fieldQueryEpisodeCount}) {
       results = append(results, theshows.ToResult(item))
     }
   }

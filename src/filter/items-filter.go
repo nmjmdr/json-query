@@ -19,7 +19,7 @@ func NewItemsFilter(itemType interface{}) ItemsFilter {
 func (i *itemsFilter) IsMatch(item interface{}, fieldQueries []FieldQuery) bool {
 	fieldReader := NewFieldReader()
 	fieldsFilter := NewFieldsFilter()
-	return fieldsFilter.Filter(item, fieldQueries, func(fieldName string) reflect.Value {
+	return fieldsFilter.IsMatch(item, fieldQueries, func(fieldName string) reflect.Value {
 		return fieldReader.Read(item, fieldName)
 	})
 }
