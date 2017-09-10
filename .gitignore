@@ -1,4 +1,5 @@
 *.exe
 *.dont
-
+/bin
+/pkg
 
