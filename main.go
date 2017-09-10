@@ -25,21 +25,20 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(ErrorResponse{ Error: "Could not decode request: JSON parsing failed"})
     return
   }
-  fmt.Println(request.Payload)
   var results []theshows.Result
   var show theshows.Show
 
-	itemsFilter := filter.NewItemsFilter(&show, func(value interface{}) {
-		found := value.(*theshows.Show)
-		result := theshows.ToResult(*found)
-		results = append(results, result)
-	})
+	itemsFilter := filter.NewItemsFilter(&show)
 
   fieldQuery1 := queryfunctions.IsTrue("drm")
   fieldQuery2 := queryfunctions.IsGreaterThanN("episodeCount", 3)
 
-  err = itemsFilter.Filter(r.Body, []filter.FieldQuery{fieldQuery1, fieldQuery2})
-  fmt.Println(results, err)
+  for _, item := range request.Payload {
+    if itemsFilter.IsMatch(item, []filter.FieldQuery{fieldQuery1, fieldQuery2}) {
+      results = append(results, theshows.ToResult(item))
+    }
+  }
+  fmt.Println(results)
   json.NewEncoder(w).Encode(results)
 }
 
