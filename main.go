@@ -7,11 +7,16 @@ import "queryfunctions"
 
 func main() {
 	type Message struct {
-		Drm  bool
+		Drm          bool
 		EpisodeCount int
 	}
 	var m Message
-	f := filter.NewItemsFilter(&m)
+	var found []Message
+
+	f := filter.NewItemsFilter(&m, func(v interface{}) {
+		foundMessage := v.(*Message)
+		found = append(found, *foundMessage)
+	})
 
 	reader, err := os.Open("./sample.json")
 	if err != nil {
@@ -19,15 +24,8 @@ func main() {
 		return
 	}
 
-	var values []interface{}
-
-
-	fieldQuery :=  queryfunctions.IsTrue("Drm")
-	values,err = f.Filter(reader, []filter.FieldQuery{fieldQuery})
-
-	for _, value := range values {
-		m, ok := value.(*Message)
-		fmt.Println(m, ok)
-	}
-
+	fieldQuery1 := queryfunctions.IsTrue("drm")
+	fieldQuery2 := queryfunctions.IsGreaterThanN("episodeCount", 3)
+	err = f.Filter(reader, []filter.FieldQuery{fieldQuery1, fieldQuery2})
+	fmt.Println(found)
 }

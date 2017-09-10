@@ -5,6 +5,6 @@ import "reflect"
 type Compare func(reflect.Value) bool
 
 type FieldQuery struct {
-	Field  string
+	Field   string
 	Compare Compare
 }
