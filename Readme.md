@@ -69,3 +69,8 @@ for _, item := range request.Payload {
     }
 }
 ```
+
+#TO DO:
+The project can be easily extended to parse query data from the request and build the field-queries.
+
+
