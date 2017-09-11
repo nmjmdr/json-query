@@ -22,11 +22,13 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
   var request theshows.Request
   err := json.NewDecoder(r.Body).Decode(&request)
   if err != nil {
+    w.WriteHeader(http.StatusBadRequest)
     json.NewEncoder(w).Encode(ErrorResponse{ Error: "Could not decode request: JSON parsing failed"})
     return
   }
 
   if request.Payload == nil || len(request.Payload) == 0 {
+     w.WriteHeader(http.StatusBadRequest)
     json.NewEncoder(w).Encode(ErrorResponse{ Error: "No items supplied in payload"})
     return
   }
@@ -44,8 +46,12 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
       results = append(results, theshows.ToResult(item))
     }
   }
-  fmt.Println(results)
-  json.NewEncoder(w).Encode(results)
+  type responseObject struct {
+    Response []theshows.Result
+  }
+  responseToSend :=  responseObject{ Response: results }
+  fmt.Println(responseToSend)
+  json.NewEncoder(w).Encode(responseToSend)
 }
 
 func main() {

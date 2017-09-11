@@ -27,11 +27,3 @@ type Show struct {
 type Request struct {
   Payload []Show
 }
-
-func toInterfaceType(payload []Show) []interface{} {
-  interfaces := make([]interface{}, len(payload))
-  for i, v := range payload {
-    interfaces[i] = v
-  }
-  return interfaces
-}
